@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>消除小游戏</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="home-screen">
+            <h1>消除小游戏</h1>
+            <div class="leaderboard" id="leaderboard">
+                <h3>排行榜</h3>
+                <div class="leaderboard-list" id="leaderboard-list">
+                    <!-- 排行榜数据将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            <div class="difficulty-selector">
+                <button class="difficulty-button active" data-difficulty="easy">简单</button>
+                <button class="difficulty-button" data-difficulty="hard">困难</button>
+                <button class="difficulty-button" data-difficulty="nightmare">噩梦</button>
+            </div>
+            <button class="start-button" id="start-button">开始游戏</button>
+        </div>
+        
+        <div class="game-screen" style="display: none;">
+            <div class="game-info">
+                <div class="score-container">
+                    <span>分数: </span>
+                    <span id="score">0</span>
+                </div>
+                <div class="level-container">
+                    <span>关卡: </span>
+                    <span id="level">1</span>
+                </div>
+                <div class="time-container">
+                    <span>时间: </span>
+                    <span id="time">60</span>
+                </div>
+            </div>
+            <div class="game-controls">
+                <button class="control-button" id="pause-button">暂停</button>
+                <button class="control-button" id="home-button">返回主页</button>
+            </div>
+            <div class="level-requirement">
+                <span>目标分数: </span>
+                <span id="required-score">80</span>
+            </div>
+            <div class="game-board" id="game-board"></div>
+        </div>
+    </div>
+    
+    <!-- 游戏结束弹窗 -->
+    <div class="game-over-modal" id="game-over-modal">
+        <div class="modal-content">
+            <h2>游戏结束</h2>
+            <p>最终得分: <span id="final-score">0</span></p>
+            <p>最终关卡: <span id="final-level">1</span></p>
+            <button class="restart-button" id="restart-button">重新开始</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
+</body>
+</html>
